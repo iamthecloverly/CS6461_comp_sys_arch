@@ -1,0 +1,18 @@
+LOC    10         ;BEGIN AT LOCATION 10
+Data   15         ;PUT 15 AT LOCATION 10
+Data   5          ;PUT 5 AT LOCATION 11
+Data   End        ;PUT 2048 AT LOCATION 12
+Data   7
+Data   14
+Data   21
+Data   28
+Data   35
+LDX    3,11       ;X3 GETS 5
+LDR    3,1,12     ;R4 GETS 14
+LDR    3,3,12     ;R5 GETS 14
+LDR    3,2,12,1   ;R6 GETS 28
+LDA    1,0,1      ;R1 GETS 7 to set CONDITION CODE
+LDX    2,12       ;X2 GETS 2048
+JZ     1,2,1      ;JUMP TO End IF R1 = 0
+LOC    2048
+End:   HLT        ;STOP
