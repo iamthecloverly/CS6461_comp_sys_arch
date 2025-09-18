@@ -1,49 +1,69 @@
-CSCI 6461 - Part 0: Assembler
-This project is a two-pass assembler for the C6461 custom instruction set architecture. It is written in Java and can be run from the command line.
+# CS6461 - Part 0: C6461 Assembler
 
-How to Compile and Create the JAR File
-This project is built using IntelliJ IDEA.
+This project is a **two-pass assembler** for the custom **C6461 Instruction Set Architecture (ISA)**, developed for the **CSCI 6461 Computer Architecture** course at George Washington University.
 
-Open the Project: Open the project folder in IntelliJ IDEA.
+The assembler is written entirely in **Java** and designed to be compiled and executed using standard development tools such as **IntelliJ IDEA**.
 
-Configure Artifacts:
+It takes in a text file containing C6461 assembly language, processes labels, directives, and instructions, and outputs two files:
 
-Go to File -> Project Structure....
+- A **human-readable listing file**
+- A **machine-readable load file** (for use in the future C6461 simulator project)
 
-Select Artifacts from the left panel.
+---
 
-Click the + icon, select JAR, and then From modules with dependencies....
+## ✨ Features
+- Implements a **two-pass assembly process**:
+    - **Pass 1:** Scans and resolves labels, builds the symbol table, and handles directives.
+    - **Pass 2:** Translates mnemonics into machine code and outputs final binaries.
+- Supports:
+    - **Directives** (e.g., LOC, Data)
+    - **Labels** (e.g., `LOOP:`)
+    - **Instructions** (e.g., `LDR 1,0,10`)
+    - **Comments** (lines starting with `;`)
+- Produces both **debugging-friendly output** and **simulator-ready binaries**.
+- Formats memory addresses and machine code in **octal**, consistent with the ISA specification.
+- Modular structure for future extensibility.
 
-For the Main Class, click the folder icon and select the Assembler class.
+---
 
-Ensure 'extract to the target JAR' is selected and click OK.
+## 📦 Prerequisites
+Before building or running the assembler, ensure you have the following installed on your system:
 
-Build the JAR:
+- **Java Development Kit (JDK):** Version 8 or later
+- **IntelliJ IDEA:** Community or Ultimate edition
+- (Optional) **Git:** For version control
 
-From the main menu, go to Build -> Build Artifacts....
+---
 
-Select your artifact (e.g., CS6461_Assembler:jar) and choose Build.
+## ⚙️ How to Compile and Create the JAR File
+This project uses IntelliJ IDEA’s **artifact packaging tool** for JAR generation.
 
-The final JAR file will be located in out/artifacts/YourProjectName_jar/YourProjectName.jar.
+1. **Open the Project**
+    - Launch IntelliJ IDEA
+    - Open the project folder (e.g., `CS6461_Assembler`)
 
-How to Run the Assembler
-You must run the assembler from a command-line terminal (like Terminal on macOS).
+2. **Configure the JAR Artifact**
+    - Navigate to **File → Project Structure…** (shortcut: `⌘;` or `Ctrl+Alt+Shift+S`)
+    - Select **Artifacts** from the left-hand menu
+    - Click the **`+`** icon → **JAR → From modules with dependencies...**
+    - In the dialog, set **Assembler** as the **Main Class**
+    - Select **extract to the target JAR**
+    - Click **OK** to save
 
-Navigate to the Directory: Open your terminal and navigate to the folder where the JAR file was created.
+3. **Build the JAR File**
+    - Go to **Build → Build Artifacts…**
+    - Select your artifact (e.g., `CS6461_Assembler:jar`)
+    - Choose **Build**
+    - IntelliJ will generate the JAR at:
+      ```
+      out/artifacts/YourProjectName_jar/YourProjectName.jar
+      ```
 
-cd path/to/your/project/out/artifacts/YourProjectName_jar/
+---
 
-Place Source File: Make sure your assembly source code file (e.g., test_program.txt) is in the same directory as the JAR file.
+## ▶️ How to Run the Assembler
+The assembler must be run from a **command-line terminal**.
 
-Execute the Program: Run the assembler by passing the source file name as a command-line argument.
-
-java -jar YourProjectName.jar test_program.txt
-
-(Replace YourProjectName.jar with the actual name of your JAR file).
-
-Outputs
-The assembler will create two files in the same directory:
-
-test_program_listing.txt: A detailed listing file showing the original code, memory addresses, and the generated machine code in octal.
-
-test_program_load.txt: A simple two-column file with memory addresses and machine code, ready to be "loaded" by the future simulator.
+1. **Navigate to Artifacts Directory**
+   ```bash
+   cd ~/IdeaProjects/CS6461_Assembler/out/artifacts/CS6461_Assembler_jar/
