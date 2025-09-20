@@ -1,0 +1,19 @@
+* 8917fa6 - (HEAD -> main, origin/main) feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions (4 minutes ago) <Sribalaji>
+* 68cd207 - chore: update CS6461_Assembler.jar to include latest changes and improvements (5 minutes ago) <Sribalaji>
+* fb28858 - feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability (5 minutes ago) <Sribalaji>
+* 3e27fd6 - docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output (6 minutes ago) <Sribalaji>
+* b1b7630 - fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting (24 minutes ago) <Sribalaji>
+* c2370f5 - chore: add program1.txt and program2.txt as new files to the repository (24 minutes ago) <Sribalaji>
+* 9e2d498 - feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users (50 minutes ago) <Sribalaji>
+* 41037db - feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions (51 minutes ago) <Sribalaji>
+* 531e5f2 - feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS (24 hours ago) <Sribalaji>
+* b1b2eeb - docs(README.md): update project description and instructions for clarity and completeness (2 days ago) <Sribalaji>
+* e148b69 - feat: add CS6461_Assembler.jar to the project for assembler functionality (2 days ago) <Sribalaji>
+* 963cacb - chore: add IntelliJ IDEA module file for CS6461 Assembler project to manage project settings and structure (2 days ago) <Sribalaji>
+* a575394 - feat(tests): add test program files for assembly language simulation (2 days ago) <Sribalaji>
+* efa8539 - feat(META-INF): add MANIFEST.MF file to define main class and version for the application (2 days ago) <Sribalaji>
+* 929926f - feat(Assembler): implement assembler functionality to convert assembly code to machine code (2 days ago) <Sribalaji>
+* 5783968 - docs: add design notes for CSCI 6461 assembler to document architecture and implementation details (2 days ago) <Sribalaji>
+* d073391 - docs(README.md): add project documentation for the two-pass assembler including compilation and execution instructions (2 days ago) <Sribalaji>
+* 8db178d - chore: add IntelliJ IDEA project files to version control for better IDE support and configuration management (2 days ago) <Sribalaji>
+* 04640dd - chore(.gitignore): add .gitignore file to exclude IDE-specific files and directories to keep the repository clean (2 days ago) <Sribalaji>
