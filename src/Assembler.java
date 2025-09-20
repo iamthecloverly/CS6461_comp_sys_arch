@@ -46,7 +46,7 @@ public class Assembler {
     }
 
     private static void initializeOpcodeTable() {
-        // (Opcodes from previous version, no changes here)
+        // Opcodes from ISA Document
         opcodeTable.put("HLT", 0); opcodeTable.put("TRAP", 30);
         opcodeTable.put("LDR", 1); opcodeTable.put("STR", 2); opcodeTable.put("LDA", 3);
         opcodeTable.put("LDX", 41); opcodeTable.put("STX", 42);
@@ -62,7 +62,7 @@ public class Assembler {
     }
 
     private static void performPass1(String fileName) throws IOException {
-        // (Pass 1 from previous version, no changes here)
+        // Pass 1 remains unchanged
         File sourceFile = new File(fileName);
         Scanner scanner = new Scanner(sourceFile);
         int locationCounter = 0;
@@ -100,7 +100,6 @@ public class Assembler {
         }
         return Integer.parseInt(operand);
     }
-
 
     private static void performPass2(String sourceFileName, String listingFileName, String loadFileName) throws IOException {
         File sourceFile = new File(sourceFileName);
@@ -187,7 +186,6 @@ public class Assembler {
                         machineCode = (opcode << 10) | (rx << 8);
                         break;
 
-                    // *** FIX IS HERE: Added cases for SRC and RRC ***
                     case "SRC": case "RRC":
                         r = Integer.parseInt(operands[0].trim());
                         int count = Integer.parseInt(operands[1].trim());
@@ -205,7 +203,8 @@ public class Assembler {
 
             if (machineCode != null) {
                 String octalAddress = String.format("%06o", locationCounter);
-                String octalContent = String.format("%06o", machineCode);
+                // *** FIX IS HERE: Apply 16-bit mask for correct negative number representation in octal ***
+                String octalContent = String.format("%06o", machineCode & 0xFFFF);
                 String binaryContent = String.format("%16s", Integer.toBinaryString(machineCode & 0xFFFF)).replace(' ', '0');
 
                 listingWriter.write(String.format("%s\t%s\t%s\n", octalAddress, octalContent, originalLine));
