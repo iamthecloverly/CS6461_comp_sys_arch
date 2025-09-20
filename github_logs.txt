@@ -1,11 +1,15 @@
-* 8917fa6 - (HEAD -> main, origin/main) feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions (4 minutes ago) <Sribalaji>
-* 68cd207 - chore: update CS6461_Assembler.jar to include latest changes and improvements (5 minutes ago) <Sribalaji>
-* fb28858 - feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability (5 minutes ago) <Sribalaji>
-* 3e27fd6 - docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output (6 minutes ago) <Sribalaji>
-* b1b7630 - fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting (24 minutes ago) <Sribalaji>
-* c2370f5 - chore: add program1.txt and program2.txt as new files to the repository (24 minutes ago) <Sribalaji>
-* 9e2d498 - feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users (50 minutes ago) <Sribalaji>
-* 41037db - feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions (51 minutes ago) <Sribalaji>
+* e147caf - (HEAD -> main, origin/main) docs(README.md): update build instructions to include javac and jar commands for creating the executable .jar file (11 seconds ago) <Sribalaji>
+* 82cdfdf - docs(README.md): update project description and improve clarity of instructions for building and running the assembler (2 minutes ago) <Sribalaji>
+* b3411d2 - docs(DESIGN_NOTES.md): update design notes to enhance clarity and structure of the assembler documentation (4 minutes ago) <Sribalaji>
+* b164215 - chore(github_logs.txt): add log of recent commits to track project history and changes (32 minutes ago) <Sribalaji>
+* 8917fa6 - feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions (38 minutes ago) <Sribalaji>
+* 68cd207 - chore: update CS6461_Assembler.jar to include latest changes and improvements (38 minutes ago) <Sribalaji>
+* fb28858 - feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability (39 minutes ago) <Sribalaji>
+* 3e27fd6 - docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output (40 minutes ago) <Sribalaji>
+* b1b7630 - fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting (57 minutes ago) <Sribalaji>
+* c2370f5 - chore: add program1.txt and program2.txt as new files to the repository (58 minutes ago) <Sribalaji>
+* 9e2d498 - feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users (84 minutes ago) <Sribalaji>
+* 41037db - feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions (84 minutes ago) <Sribalaji>
 * 531e5f2 - feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS (24 hours ago) <Sribalaji>
 * b1b2eeb - docs(README.md): update project description and instructions for clarity and completeness (2 days ago) <Sribalaji>
 * e148b69 - feat: add CS6461_Assembler.jar to the project for assembler functionality (2 days ago) <Sribalaji>
