@@ -26,6 +26,25 @@ It takes in a text file containing C6461 assembly language, processes labels, di
 
 ---
 
+## 🧩 Instruction Coverage
+The assembler currently supports the following C6461 instruction categories:
+- **Load/Store Instructions** (e.g., `LDR`, `STR`, `LDA`, `LDX`, `STX`)
+- **Transfer Instructions** (e.g., `JZ`, `JNE`, `JMA`, `JSR`, `SOB`, `JGE`)
+- **Arithmetic and Logical Instructions** (e.g., `AMR`, `SMR`, `AIR`, `SIR`)
+- **Register-to-Register Operations** (e.g., `MLT`, `DVD`, `TRR`, `AND`, `ORR`, `NOT`)
+- **Shift and Rotate Instructions** (`SRC`, `RRC`)
+- **Miscellaneous Instructions** (`HLT`)
+
+## 📑 Symbol Table and Output Files
+- **Symbol Table:** Built during Pass 1, mapping labels to addresses for use in Pass 2.
+- **Listing File (.lst):** 
+  - Shows original source line
+  - Corresponding memory address (octal)
+  - Encoded machine word (octal)
+- **Load File (.obj):**
+  - Compact binary representation for simulator loading
+  - Contains only machine words (no source/debug info)
+
 ## 📦 Prerequisites
 Before building or running the assembler, ensure you have the following installed on your system:
 
@@ -66,4 +85,12 @@ The assembler must be run from a **command-line terminal**.
 
 1. **Navigate to Artifacts Directory**
    ```bash
+
+## 🚀 Future Work
+This assembler is **Part I** of the larger CSCI 6461 Computer Architecture project.  
+Planned extensions include:
+- Implementing **TRAP instructions** and **machine fault handling** (Part III)
+- Expanding instruction coverage for **floating-point and vector operations**
+- Integrating with the **C6461 simulator** to execute assembled programs
+
    cd ~/IdeaProjects/CS6461_Assembler/out/artifacts/CS6461_Assembler_jar/
