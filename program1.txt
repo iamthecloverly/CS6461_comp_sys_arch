@@ -1,0 +1,20 @@
+; This program tests register-to-register arithmetic and logical operations.
+; It multiplies two numbers, tests for equality, and performs a NOT operation.
+
+LOC    20          ; Start program at address 20 (decimal)
+Data   5           ; Value 1 for multiplication at address 20
+Data   10          ; Value 2 for multiplication at address 21
+Result: Data 0     ; Location to store result (address 22)
+
+Start:
+LDR    0,0,20      ; Load R0 with the value 5 from address 20
+LDR    2,0,21      ; Load R2 with the value 10 from address 21
+MLT    0,2         ; Multiply R0 by R2. R0:R1 = R0 * R2. Result will be in R1.
+STR    1,0,22      ; Store the low-order bits of the result (R1) into 'Result' (address 22)
+
+LDR    0,0,20      ; Load R0 with 5
+LDR    2,0,20      ; Load R2 with 5
+TRR    0,2         ; Test for equality between R0 and R2. Sets CC(4) to 1.
+
+NOT    0           ; Perform bitwise NOT on R0. R0 was 5 (0...0101), becomes (1...1010)
+HLT                ; Stop the machine
