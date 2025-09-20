@@ -145,7 +145,6 @@ public class Assembler {
             Integer machineCode = null;
 
             if (operation.equals("DATA")) {
-                // *** FIX IS HERE: Use the helper function ***
                 machineCode = resolveValue(operandsStr);
             } else if (operation.equals("HLT")) {
                 machineCode = 0;
@@ -159,7 +158,6 @@ public class Assembler {
                     case "SOB": case "JGE":
                         int r = Integer.parseInt(operands[0].trim());
                         int ix = Integer.parseInt(operands[1].trim());
-                        // *** FIX IS HERE: Use helper to resolve the address ***
                         int address = resolveValue(operands[2]);
                         int i = (operands.length == 4 && "1".equals(operands[3].trim())) ? 1 : 0;
                         machineCode = (opcode << 10) | (r << 8) | (ix << 6) | (i << 5) | address;
@@ -167,7 +165,6 @@ public class Assembler {
 
                     case "LDX": case "STX":
                         ix = Integer.parseInt(operands[0].trim());
-                        // *** FIX IS HERE: Use helper to resolve the address ***
                         address = resolveValue(operands[1]);
                         i = (operands.length == 3 && "1".equals(operands[2].trim())) ? 1 : 0;
                         machineCode = (opcode << 10) | (ix << 6) | (i << 5) | address;
@@ -190,6 +187,15 @@ public class Assembler {
                         machineCode = (opcode << 10) | (rx << 8);
                         break;
 
+                    // *** FIX IS HERE: Added cases for SRC and RRC ***
+                    case "SRC": case "RRC":
+                        r = Integer.parseInt(operands[0].trim());
+                        int count = Integer.parseInt(operands[1].trim());
+                        int lr = Integer.parseInt(operands[2].trim()); // Left/Right
+                        int al = Integer.parseInt(operands[3].trim()); // Arithmetic/Logical
+                        machineCode = (opcode << 10) | (r << 8) | (al << 7) | (lr << 6) | count;
+                        break;
+
                     default:
                         throw new IllegalArgumentException("Unsupported instruction '" + operation + "' on line " + lineNumber);
                 }
@@ -200,7 +206,7 @@ public class Assembler {
             if (machineCode != null) {
                 String octalAddress = String.format("%06o", locationCounter);
                 String octalContent = String.format("%06o", machineCode);
-                String binaryContent = String.format("%16s", Integer.toBinaryString(machineCode)).replace(' ', '0');
+                String binaryContent = String.format("%16s", Integer.toBinaryString(machineCode & 0xFFFF)).replace(' ', '0');
 
                 listingWriter.write(String.format("%s\t%s\t%s\n", octalAddress, octalContent, originalLine));
                 loadWriter.write(String.format("%s %s\n", octalAddress, octalContent));
