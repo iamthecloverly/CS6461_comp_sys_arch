@@ -1,46 +1,84 @@
 # CSCI 6461 Assembler - Design Notes
-1. Overall Architecture
-   The assembler follows a classic two-pass design. This approach is chosen to correctly handle forward references, where a label is used as an operand before it is defined in the source code.
 
-Pass 1: The primary goal is to build a Symbol Table. This pass reads the source file line-by-line to find all labels and record their corresponding memory addresses. It does not generate any machine code. A location counter is maintained to track addresses.
+This document outlines the design and architecture of the two-pass assembler for the CSCI 6461 computer architecture.
 
-Pass 2: This pass performs the actual translation. It reads the source file again, and for each line, it generates the corresponding 16-bit machine code. It uses the Symbol Table created in Pass 1 to resolve label addresses. It then formats this machine code into octal and writes to the required output files.
+---
 
-2. Key Data Structures
-   Symbol Table: A java.util.HashMap<String, Integer> is used to store the symbol table.
+## 1. Overall Architecture
 
-Key: The String label name (e.g., "LOOP", "END").
+The assembler employs a **classic two-pass design**. This approach is essential for handling forward references, where a symbolic label (e.g., `LOOP_START`) is used as an operand before it is defined in the source code.
 
-Value: The Integer memory address (location counter value) corresponding to that label.
+### Pass 1: Symbol Table Construction
+- Primary goal: Build a complete symbol table.
+- Process:
+    - Read the source file line-by-line.
+    - Identify all labels (e.g., `End:`).
+    - Record their corresponding memory addresses.
+- Implementation details:
+    - Maintain a location counter to track the address of each instruction and data directive.
+    - **No machine code** is generated during this pass.
 
-Reasoning: A HashMap provides efficient O(1) average time complexity for lookups, which is ideal for resolving label addresses during Pass 2.
+### Pass 2: Code Generation
+- Primary goal: Perform the actual translation.
+- Process:
+    - Read the source file again.
+    - Generate the final 16-bit machine code for each line.
+    - Use the symbol table created in Pass 1 to resolve all symbolic addresses.
+- Output:
+    - Final machine code is formatted into **octal**.
+    - Written to the required output files.
 
-Opcode Table: A java.util.HashMap<String, String> is used to map instruction mnemonics to their binary opcodes.
+---
 
-Key: The String instruction mnemonic (e.g., "LDR", "STR").
+## 2. Key Data Structures
 
-Value: The 6-bit binary String representation of the opcode (e.g., "000001").
+### Symbol Table
+- **Type:** `java.util.HashMap<String, Integer>`
+- **Key:** Label name (e.g., `"LOOP"`, `"END"`)
+- **Value:** Memory address corresponding to the label
+- **Reasoning:** Provides efficient **O(1)** average lookup time, crucial for resolving label addresses quickly during Pass 2.
 
-Reasoning: This provides a clean and quick way to look up the binary value for each instruction during translation.
+### Opcode Table
+- **Type:** `java.util.HashMap<String, Integer>`
+- **Key:** Instruction mnemonic (e.g., `"LDR"`, `"STR"`)
+- **Value:** Integer representation of the opcode (e.g., `1`, `2`)
+- **Reasoning:** Storing opcodes as integers allows clean, centralized mapping and easy construction of machine code using **bitwise operations**.
 
-3. File Handling
-   Input: The assembler takes a single command-line argument: the path to the assembly source file (.txt).
+---
 
-Output: It generates two files automatically based on the input file's name:
+## 3. File Handling
 
-[source]_listing.txt: The human-readable listing file.
+- **Input:**
+    - Command-line utility accepting a single argument: the path to an assembly source file (e.g., `program1.txt`).
 
-[source]_load.txt: The machine-readable load file for the simulator.
+- **Output:**  
+  Automatically generates two files based on the input filename:
+    - `[source]_listing.txt`: Human-readable listing file showing the address, generated machine code, and original source line.
+    - `[source]_load.txt`: Machine-readable load file containing `[address] [value]` pairs in octal format for the simulator.
 
-Implementation: Standard Java I/O classes (java.io.File, java.util.Scanner, java.io.FileWriter) are used for all file operations.
+- **Implementation:**  
+  Uses standard Java I/O classes (`java.io.File`, `java.util.Scanner`, `java.io.FileWriter`) for file operations.
 
-4. Code Parsing and Translation
-   Each line is processed by first removing comments (anything after a ;).
+---
 
-Labels are identified by checking for a trailing colon (:).
+## 4. Code Parsing and Translation
 
-Instructions and their operands are parsed using String.split() with whitespace and commas as delimiters.
+### Line Parsing
+- Strip comments (any text following `;`).
+- Identify labels (trailing `:`) in **Pass 1**.
+- Parse instructions and operands using `String.split()` with whitespace and commas as delimiters.
 
-Binary strings for each part of an instruction (opcode, registers, address, etc.) are constructed and then concatenated to form the final 16-bit machine code.
+### Machine Code Generation
+- Construct the final 16-bit machine code word using **bitwise operations**.
+- Shift (`<<`) opcode, registers, and other fields into their correct positions.
+- Combine using bitwise OR (`|`).
+- This method is efficient and standard for assembling machine instructions.
 
-Java's String.format() and Integer.toBinaryString() / Integer.toOctalString() are used heavily for padding and number base conversions to ensure correct formatting.
+**Example:**
+
+Instruction:
+```text
+LDR 1,0,20   ; Opcode=1, R=1, IX=0, I=0, Addr=20
+
+machineCode = (opcode << 10) | (r << 8) | (ix << 6) | (i << 5) | address;
+
