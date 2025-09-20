@@ -63,3 +63,11 @@ You can build the executable `.jar` file using either an IDE like IntelliJ or di
 1. **Navigate to Source Directory:**
    ```bash
    cd path/to/your/project/src
+   ```
+   ```bash
+   javac Assembler.java
+   ```
+   
+   ```bash
+   jar cfe CS6461_Assembler.jar Assembler Assembler.class
+   ```
