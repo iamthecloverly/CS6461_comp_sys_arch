@@ -1,0 +1,17 @@
+; CSCI 6461 - Program 0
+; This program loads a value from memory, stores it in a new location,
+; and demonstrates the use of LDR, LDX, and STR.
+
+    LOC 6             ; Start executable code at address 6 (safely after reserved area)
+
+
+START:
+LDR 0,0,VAL_A     ; Load GPR0 with the value at label VAL_A (which is 10)
+LDX 1,STORE_LOC   ; CORRECTED: Load IXR1 with the address of label STORE_LOC
+STR 0,1,0         ; Store GPR0's value (10) into the address held by IXR1
+HLT               ; Halt the machine
+
+; --- Data Section ---
+; Place data safely after the HLT instruction so it's not executed.
+VAL_A:      DATA 10
+STORE_LOC:  DATA 0      ; The result (10) will be stored here by the program
