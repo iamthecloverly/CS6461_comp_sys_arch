@@ -1,23 +1,30 @@
-* e147caf - (HEAD -> main, origin/main) docs(README.md): update build instructions to include javac and jar commands for creating the executable .jar file (11 seconds ago) <Sribalaji>
-* 82cdfdf - docs(README.md): update project description and improve clarity of instructions for building and running the assembler (2 minutes ago) <Sribalaji>
-* b3411d2 - docs(DESIGN_NOTES.md): update design notes to enhance clarity and structure of the assembler documentation (4 minutes ago) <Sribalaji>
-* b164215 - chore(github_logs.txt): add log of recent commits to track project history and changes (32 minutes ago) <Sribalaji>
-* 8917fa6 - feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions (38 minutes ago) <Sribalaji>
-* 68cd207 - chore: update CS6461_Assembler.jar to include latest changes and improvements (38 minutes ago) <Sribalaji>
-* fb28858 - feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability (39 minutes ago) <Sribalaji>
-* 3e27fd6 - docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output (40 minutes ago) <Sribalaji>
-* b1b7630 - fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting (57 minutes ago) <Sribalaji>
-* c2370f5 - chore: add program1.txt and program2.txt as new files to the repository (58 minutes ago) <Sribalaji>
-* 9e2d498 - feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users (84 minutes ago) <Sribalaji>
-* 41037db - feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions (84 minutes ago) <Sribalaji>
-* 531e5f2 - feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS (24 hours ago) <Sribalaji>
-* b1b2eeb - docs(README.md): update project description and instructions for clarity and completeness (2 days ago) <Sribalaji>
-* e148b69 - feat: add CS6461_Assembler.jar to the project for assembler functionality (2 days ago) <Sribalaji>
-* 963cacb - chore: add IntelliJ IDEA module file for CS6461 Assembler project to manage project settings and structure (2 days ago) <Sribalaji>
-* a575394 - feat(tests): add test program files for assembly language simulation (2 days ago) <Sribalaji>
-* efa8539 - feat(META-INF): add MANIFEST.MF file to define main class and version for the application (2 days ago) <Sribalaji>
-* 929926f - feat(Assembler): implement assembler functionality to convert assembly code to machine code (2 days ago) <Sribalaji>
-* 5783968 - docs: add design notes for CSCI 6461 assembler to document architecture and implementation details (2 days ago) <Sribalaji>
-* d073391 - docs(README.md): add project documentation for the two-pass assembler including compilation and execution instructions (2 days ago) <Sribalaji>
-* 8db178d - chore: add IntelliJ IDEA project files to version control for better IDE support and configuration management (2 days ago) <Sribalaji>
-* 04640dd - chore(.gitignore): add .gitignore file to exclude IDE-specific files and directories to keep the repository clean (2 days ago) <Sribalaji>
+7a00a23 - Sribalaji, 5 minutes ago : feat: add initial assembly program and load files for CSCI 6461 - Program 0
+fffa3f7 - Sribalaji, 6 minutes ago : style(Assembler.java): format code for better readability and consistency by adjusting line breaks and indentation
+f23fb6e - Sribalaji, 6 minutes ago : feat(Program0.txt): add initial assembly program demonstrating LDR, LDX, and STR instructions
+4d06774 - Sribalaji, 7 minutes ago : feat(SimulatorGUI.java): add a new graphical user interface for the CPU simulator to enhance user interaction and visualization of CPU operations
+fd94b97 - Sribalaji, 7 minutes ago : feat(CPU.java): add CPU class with registers, memory, and instruction execution logic to implement basic CPU functionality
+c24f347 - Sribalaji, 4 weeks ago : feat: add Team7 AssemblerPart0 CSCI6461 Section12Fall2025 September 2020 PDF document to the repository
+2e8f77e - Sribalaji, 4 weeks ago : docs(github_logs.txt): update commit log to reflect recent changes and improvements in project documentation and functionality
+e147caf - Sribalaji, 4 weeks ago : docs(README.md): update build instructions to include javac and jar commands for creating the executable .jar file
+82cdfdf - Sribalaji, 4 weeks ago : docs(README.md): update project description and improve clarity of instructions for building and running the assembler
+b3411d2 - Sribalaji, 4 weeks ago : docs(DESIGN_NOTES.md): update design notes to enhance clarity and structure of the assembler documentation
+b164215 - Sribalaji, 4 weeks ago : chore(github_logs.txt): add log of recent commits to track project history and changes
+8917fa6 - Sribalaji, 4 weeks ago : feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions
+68cd207 - Sribalaji, 4 weeks ago : chore: update CS6461_Assembler.jar to include latest changes and improvements
+fb28858 - Sribalaji, 4 weeks ago : feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability
+3e27fd6 - Sribalaji, 4 weeks ago : docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output
+b1b7630 - Sribalaji, 4 weeks ago : fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting
+c2370f5 - Sribalaji, 4 weeks ago : chore: add program1.txt and program2.txt as new files to the repository
+9e2d498 - Sribalaji, 4 weeks ago : feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users
+41037db - Sribalaji, 4 weeks ago : feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions
+531e5f2 - Sribalaji, 4 weeks ago : feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS
+b1b2eeb - Sribalaji, 4 weeks ago : docs(README.md): update project description and instructions for clarity and completeness
+e148b69 - Sribalaji, 4 weeks ago : feat: add CS6461_Assembler.jar to the project for assembler functionality
+963cacb - Sribalaji, 4 weeks ago : chore: add IntelliJ IDEA module file for CS6461 Assembler project to manage project settings and structure
+a575394 - Sribalaji, 4 weeks ago : feat(tests): add test program files for assembly language simulation
+efa8539 - Sribalaji, 4 weeks ago : feat(META-INF): add MANIFEST.MF file to define main class and version for the application
+929926f - Sribalaji, 4 weeks ago : feat(Assembler): implement assembler functionality to convert assembly code to machine code
+5783968 - Sribalaji, 4 weeks ago : docs: add design notes for CSCI 6461 assembler to document architecture and implementation details
+d073391 - Sribalaji, 4 weeks ago : docs(README.md): add project documentation for the two-pass assembler including compilation and execution instructions
+8db178d - Sribalaji, 4 weeks ago : chore: add IntelliJ IDEA project files to version control for better IDE support and configuration management
+04640dd - Sribalaji, 4 weeks ago : chore(.gitignore): add .gitignore file to exclude IDE-specific files and directories to keep the repository clean
