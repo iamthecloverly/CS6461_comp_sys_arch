@@ -27,8 +27,8 @@ public class Assembler {
             System.out.println("--- Starting Pass 1: Building Symbol Table ---");
             performPass1(sourceFileName);
             System.out.println("Symbol Table constructed successfully:");
-            symbolTable.forEach((label, address) ->
-                    System.out.printf("  Label: %-10s Address: %d (0o%o)\n", label, address, address));
+            symbolTable.forEach((label, address) -> System.out.printf("  Label: %-10s Address: %d (0o%o)\n", label,
+                    address, address));
             System.out.println("--- Pass 1 Complete ---\n");
 
             System.out.println("--- Starting Pass 2: Generating Machine Code ---");
@@ -47,18 +47,36 @@ public class Assembler {
 
     private static void initializeOpcodeTable() {
         // Opcodes from ISA Document
-        opcodeTable.put("HLT", 0); opcodeTable.put("TRAP", 30);
-        opcodeTable.put("LDR", 1); opcodeTable.put("STR", 2); opcodeTable.put("LDA", 3);
-        opcodeTable.put("LDX", 41); opcodeTable.put("STX", 42);
-        opcodeTable.put("JZ", 10); opcodeTable.put("JNE", 11); opcodeTable.put("JCC", 12);
-        opcodeTable.put("JMA", 13); opcodeTable.put("JSR", 14); opcodeTable.put("RFS", 15);
-        opcodeTable.put("SOB", 16); opcodeTable.put("JGE", 17);
-        opcodeTable.put("AMR", 4); opcodeTable.put("SMR", 5); opcodeTable.put("AIR", 6);
+        opcodeTable.put("HLT", 0);
+        opcodeTable.put("TRAP", 30);
+        opcodeTable.put("LDR", 1);
+        opcodeTable.put("STR", 2);
+        opcodeTable.put("LDA", 3);
+        opcodeTable.put("LDX", 41);
+        opcodeTable.put("STX", 42);
+        opcodeTable.put("JZ", 10);
+        opcodeTable.put("JNE", 11);
+        opcodeTable.put("JCC", 12);
+        opcodeTable.put("JMA", 13);
+        opcodeTable.put("JSR", 14);
+        opcodeTable.put("RFS", 15);
+        opcodeTable.put("SOB", 16);
+        opcodeTable.put("JGE", 17);
+        opcodeTable.put("AMR", 4);
+        opcodeTable.put("SMR", 5);
+        opcodeTable.put("AIR", 6);
         opcodeTable.put("SIR", 7);
-        opcodeTable.put("MLT", 20); opcodeTable.put("DVD", 21); opcodeTable.put("TRR", 22);
-        opcodeTable.put("AND", 23); opcodeTable.put("ORR", 24); opcodeTable.put("NOT", 25);
-        opcodeTable.put("SRC", 31); opcodeTable.put("RRC", 32);
-        opcodeTable.put("IN", 61); opcodeTable.put("OUT", 62); opcodeTable.put("CHK", 63);
+        opcodeTable.put("MLT", 20);
+        opcodeTable.put("DVD", 21);
+        opcodeTable.put("TRR", 22);
+        opcodeTable.put("AND", 23);
+        opcodeTable.put("ORR", 24);
+        opcodeTable.put("NOT", 25);
+        opcodeTable.put("SRC", 31);
+        opcodeTable.put("RRC", 32);
+        opcodeTable.put("IN", 61);
+        opcodeTable.put("OUT", 62);
+        opcodeTable.put("CHK", 63);
     }
 
     private static void performPass1(String fileName) throws IOException {
@@ -68,8 +86,10 @@ public class Assembler {
         int locationCounter = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
-            if (line.isEmpty() || line.startsWith(";")) continue;
-            if (line.contains(";")) line = line.substring(0, line.indexOf(';')).trim();
+            if (line.isEmpty() || line.startsWith(";"))
+                continue;
+            if (line.contains(";"))
+                line = line.substring(0, line.indexOf(';')).trim();
             Pattern labelPattern = Pattern.compile("^(\\w+):");
             Matcher labelMatcher = labelPattern.matcher(line);
             if (labelMatcher.find()) {
@@ -101,7 +121,8 @@ public class Assembler {
         return Integer.parseInt(operand);
     }
 
-    private static void performPass2(String sourceFileName, String listingFileName, String loadFileName) throws IOException {
+    private static void performPass2(String sourceFileName, String listingFileName, String loadFileName)
+            throws IOException {
         File sourceFile = new File(sourceFileName);
         Scanner scanner = new Scanner(sourceFile);
         FileWriter listingWriter = new FileWriter(listingFileName);
@@ -118,7 +139,8 @@ public class Assembler {
                 listingWriter.write(String.format("\t\t\t%s\n", originalLine));
                 continue;
             }
-            if (line.contains(";")) line = line.substring(0, line.indexOf(';')).trim();
+            if (line.contains(";"))
+                line = line.substring(0, line.indexOf(';')).trim();
 
             String labelPart = "";
             if (line.matches("^(\\w+):.*")) {
@@ -127,7 +149,8 @@ public class Assembler {
             }
 
             if (line.isEmpty()) {
-                listingWriter.write(String.format("%06o\t\t%s\n", symbolTable.get(labelPart.replace(":", "")), originalLine));
+                listingWriter.write(
+                        String.format("%06o\t\t%s\n", symbolTable.get(labelPart.replace(":", "")), originalLine));
                 continue;
             }
 
@@ -152,9 +175,18 @@ public class Assembler {
                 String[] operands = operandsStr.split(",");
 
                 switch (operation) {
-                    case "LDR": case "STR": case "LDA": case "AMR": case "SMR":
-                    case "JZ": case "JNE": case "JCC": case "JMA": case "JSR":
-                    case "SOB": case "JGE":
+                    case "LDR":
+                    case "STR":
+                    case "LDA":
+                    case "AMR":
+                    case "SMR":
+                    case "JZ":
+                    case "JNE":
+                    case "JCC":
+                    case "JMA":
+                    case "JSR":
+                    case "SOB":
+                    case "JGE":
                         int r = Integer.parseInt(operands[0].trim());
                         int ix = Integer.parseInt(operands[1].trim());
                         int address = resolveValue(operands[2]);
@@ -162,20 +194,26 @@ public class Assembler {
                         machineCode = (opcode << 10) | (r << 8) | (ix << 6) | (i << 5) | address;
                         break;
 
-                    case "LDX": case "STX":
+                    case "LDX":
+                    case "STX":
                         ix = Integer.parseInt(operands[0].trim());
                         address = resolveValue(operands[1]);
                         i = (operands.length == 3 && "1".equals(operands[2].trim())) ? 1 : 0;
                         machineCode = (opcode << 10) | (ix << 6) | (i << 5) | address;
                         break;
 
-                    case "AIR": case "SIR":
+                    case "AIR":
+                    case "SIR":
                         r = Integer.parseInt(operands[0].trim());
                         int immed = Integer.parseInt(operands[1].trim());
                         machineCode = (opcode << 10) | (r << 8) | immed;
                         break;
 
-                    case "MLT": case "DVD": case "TRR": case "AND": case "ORR":
+                    case "MLT":
+                    case "DVD":
+                    case "TRR":
+                    case "AND":
+                    case "ORR":
                         int rx = Integer.parseInt(operands[0].trim());
                         int ry = Integer.parseInt(operands[1].trim());
                         machineCode = (opcode << 10) | (rx << 8) | (ry << 6);
@@ -186,7 +224,8 @@ public class Assembler {
                         machineCode = (opcode << 10) | (rx << 8);
                         break;
 
-                    case "SRC": case "RRC":
+                    case "SRC":
+                    case "RRC":
                         r = Integer.parseInt(operands[0].trim());
                         int count = Integer.parseInt(operands[1].trim());
                         int lr = Integer.parseInt(operands[2].trim()); // Left/Right
@@ -195,7 +234,8 @@ public class Assembler {
                         break;
 
                     default:
-                        throw new IllegalArgumentException("Unsupported instruction '" + operation + "' on line " + lineNumber);
+                        throw new IllegalArgumentException(
+                                "Unsupported instruction '" + operation + "' on line " + lineNumber);
                 }
             } else {
                 throw new IllegalArgumentException("Unknown operation '" + operation + "' on line " + lineNumber);
@@ -203,14 +243,17 @@ public class Assembler {
 
             if (machineCode != null) {
                 String octalAddress = String.format("%06o", locationCounter);
-                // *** FIX IS HERE: Apply 16-bit mask for correct negative number representation in octal ***
+                // *** FIX IS HERE: Apply 16-bit mask for correct negative number representation
+                // in octal ***
                 String octalContent = String.format("%06o", machineCode & 0xFFFF);
-                String binaryContent = String.format("%16s", Integer.toBinaryString(machineCode & 0xFFFF)).replace(' ', '0');
+                String binaryContent = String.format("%16s", Integer.toBinaryString(machineCode & 0xFFFF)).replace(' ',
+                        '0');
 
                 listingWriter.write(String.format("%s\t%s\t%s\n", octalAddress, octalContent, originalLine));
                 loadWriter.write(String.format("%s %s\n", octalAddress, octalContent));
 
-                System.out.printf("Processed Address %s: %-30s -> %s (Binary: %s)\n", octalAddress, originalLine.trim(), octalContent, binaryContent);
+                System.out.printf("Processed Address %s: %-30s -> %s (Binary: %s)\n", octalAddress, originalLine.trim(),
+                        octalContent, binaryContent);
                 locationCounter++;
             }
         }
@@ -219,4 +262,3 @@ public class Assembler {
         loadWriter.close();
     }
 }
-
