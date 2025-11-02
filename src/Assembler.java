@@ -173,6 +173,7 @@ public class Assembler {
             } else if (opcodeTable.containsKey(operation)) {
                 int opcode = opcodeTable.get(operation);
                 String[] operands = operandsStr.split(",");
+                int r; // Re-used variable
 
                 switch (operation) {
                     case "LDR":
@@ -187,7 +188,7 @@ public class Assembler {
                     case "JSR":
                     case "SOB":
                     case "JGE":
-                        int r = Integer.parseInt(operands[0].trim());
+                        r = Integer.parseInt(operands[0].trim());
                         int ix = Integer.parseInt(operands[1].trim());
                         int address = resolveValue(operands[2]);
                         int i = (operands.length == 4 && "1".equals(operands[3].trim())) ? 1 : 0;
@@ -206,6 +207,10 @@ public class Assembler {
                     case "SIR":
                         r = Integer.parseInt(operands[0].trim());
                         int immed = Integer.parseInt(operands[1].trim());
+                        // Handle 5-bit signed immediate
+                        if (immed < 0) {
+                            immed = immed & 0b11111; // 5-bit 2's complement
+                        }
                         machineCode = (opcode << 10) | (r << 8) | immed;
                         break;
 
@@ -232,6 +237,22 @@ public class Assembler {
                         int al = Integer.parseInt(operands[3].trim()); // Arithmetic/Logical
                         machineCode = (opcode << 10) | (r << 8) | (al << 7) | (lr << 6) | count;
                         break;
+
+                    // --- NEW CASES ---
+                    case "IN":
+                    case "OUT":
+                    case "CHK":
+                        r = Integer.parseInt(operands[0].trim());
+                        int devid = Integer.parseInt(operands[1].trim());
+                        machineCode = (opcode << 10) | (r << 8) | devid;
+                        break;
+
+                    case "TRAP":
+                        // Assuming TRAP takes one argument, the trap code
+                        int trapcode = Integer.parseInt(operands[0].trim());
+                        machineCode = (opcode << 10) | trapcode;
+                        break;
+                    // --- END NEW CASES ---
 
                     default:
                         throw new IllegalArgumentException(
