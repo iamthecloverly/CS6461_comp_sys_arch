@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CS6461_part2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CS6461_part2_jar</output-path>
+    <root id="archive" name="CS6461_Simulator.jar">
+      <element id="module-output" name="CS6461_Assembler" />
+    </root>
+  </artifact>
+</component>
