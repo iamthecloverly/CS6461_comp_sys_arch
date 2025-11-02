@@ -1,0 +1,86 @@
+			; Program 1 (for Part 2 Deliverable)
+			; Reads 20 numbers, stores them, prints them back.
+			; Then, reads one target number.
+			; Finds and prints the number in the list closest to the target.
+			
+			LOC 30		; Start program at octal 30 (decimal 24)
+			
+			; --- Part 1: Read 20 numbers into memory[100]...[119] ---
+000036	002113	START:	LDR 0,0,COUNT		; R0 = 20 (Loop counter)
+000037	006512		    LDA 1,0,START_ADDR	; R1 = 100 (Array pointer)
+000040		READ_LOOP:
+000040	173000		    IN 2,0		; Read integer from keyboard into R2
+000041	005100		    STR 2,1,0		; Store R2 into memory[R1]
+000042	014401		    AIR 1,1		; R1 = R1 + 1 (Increment pointer)
+000043	040040		    SOB 0,0,READ_LOOP	; R0 = R0 - 1; Branch to READ_LOOP if R0 > 0
+			
+			; --- Part 2: Print the 20 numbers back to the console ---
+000044	002113		    LDR 0,0,COUNT		; R0 = 20 (Loop counter)
+000045	006512		    LDA 1,0,START_ADDR	; R1 = 100 (Array pointer)
+000046		PRINT_LOOP:
+000046	003100		    LDR 2,1,0		; R2 = memory[R1]
+000047	175001		    OUT 2,1		; Print R2 to console
+000050	014401		    AIR 1,1		; R1 = R1 + 1
+000051	040046		    SOB 0,0,PRINT_LOOP	; R0 = R0 - 1; Branch if R0 > 0
+			
+			; --- Part 3: Read target number ---
+000052	172000		    IN 0,0		; Read target number into R0
+			
+			; --- Part 4: Find closest number ---
+000053	006512		    LDA 1,0,START_ADDR	; R1 = 100 (Array pointer)
+000054	003100		    LDR 2,1,0		; R2 = memory[100] (This is our first 'closest' guess)
+			
+				    ; Calculate initial |target - guess|
+000055	003400		    LDR 3,0,0		; R3 = R0 (target)
+000056	013500		    SMR 3,1,0		; R3 = R3 - R2 (target - guess)
+000057	043463		    JGE 3,0,POS_FIRST	; If (target - guess) >= 0, it's positive
+000060	051600		    MLT 3,2		; R3 * R2 (R2 is junk, we just need to mult by -1)
+000061	003515		    LDR 3,0,NEG_ONE
+000062	051700		    MLT 3,3         ; R3 = R3 * -1 (R3 is now positive)
+000063		POS_FIRST:
+				    ; R3 now holds the first |diff|
+			
+000063	002113		    LDR 0,0,COUNT		; R0 = 20 (Loop counter)
+000064	016001		    SIR 0,1		; R0 = 19 (We already did the first one)
+000065	014401		    AIR 1,1		; R1 = 101 (Point to second element)
+			
+000066		FIND_LOOP:
+000066	003000		    LDR 2,0,0		; R2 = R0 (target)
+000067	013100		    SMR 2,1,0		; R2 = target - memory[R1] (new_diff)
+			
+				    ; Get absolute value of new_diff
+000070	002002		    LDR 0,0,2		; R0 = new_diff
+000071	042074		    JGE 0,0,POS_NEW		; If new_diff >= 0, it's positive
+000072	002115		    LDR 0,0,NEG_ONE
+000073	050000		    MLT 0,0         ; R0 = new_diff * -1 (absolute value)
+000074		POS_NEW:
+				    ; R0 has new |diff|, R3 has old |diff|
+000074	012003		    SMR 0,0,3		; R0 = new |diff| - old |diff|
+000075	042104		    JGE 0,0,NO_UPDATE	; If (new_diff - old_diff) >= 0, new is NOT better
+			
+				    ; Update: new_diff is smaller
+000076	002002		    LDR 0,0,2		; R0 = new_diff
+000077	042102		    JGE 0,0,POS_UPDATE	; Get absolute value of new_diff again
+000100	002115		    LDR 0,0,NEG_ONE
+000101	050000		    MLT 0,0
+000102		POS_UPDATE:
+000102	003400		    LDR 3,0,0		; R3 = R0 (update old_diff)
+000103	003100		    LDR 2,1,0		; R2 = memory[R1] (This is the new 'closest' guess)
+			
+000104		NO_UPDATE:
+000104	014401		    AIR 1,1		; R1 = R1 + 1
+000105	002113		    LDR 0,0,COUNT
+000106	012001		    SMR 0,0,1       ; R0 = count - 1 (for SOB)
+000107	040066		    SOB 0,0,FIND_LOOP
+			
+			; --- Part 5: Print the final result ---
+000110	175001		    OUT 2,1		; Print the closest value found (in R2)
+			
+000111	000000		    HLT			; Stop
+			
+			; --- Data Section ---
+			; Place data *after* HLT so it's not executed by accident
+000112	000144	START_ADDR: DATA 100	; Array starts at address 100 (octal)
+000113	000024	COUNT: 	    DATA 20	; We will read 20 (decimal) numbers
+000114	000001	ONE:	    DATA 1
+000115	177777	NEG_ONE:    DATA -1
