@@ -1,30 +1,42 @@
-7a00a23 - Sribalaji, 5 minutes ago : feat: add initial assembly program and load files for CSCI 6461 - Program 0
-fffa3f7 - Sribalaji, 6 minutes ago : style(Assembler.java): format code for better readability and consistency by adjusting line breaks and indentation
-f23fb6e - Sribalaji, 6 minutes ago : feat(Program0.txt): add initial assembly program demonstrating LDR, LDX, and STR instructions
-4d06774 - Sribalaji, 7 minutes ago : feat(SimulatorGUI.java): add a new graphical user interface for the CPU simulator to enhance user interaction and visualization of CPU operations
-fd94b97 - Sribalaji, 7 minutes ago : feat(CPU.java): add CPU class with registers, memory, and instruction execution logic to implement basic CPU functionality
-c24f347 - Sribalaji, 4 weeks ago : feat: add Team7 AssemblerPart0 CSCI6461 Section12Fall2025 September 2020 PDF document to the repository
-2e8f77e - Sribalaji, 4 weeks ago : docs(github_logs.txt): update commit log to reflect recent changes and improvements in project documentation and functionality
-e147caf - Sribalaji, 4 weeks ago : docs(README.md): update build instructions to include javac and jar commands for creating the executable .jar file
-82cdfdf - Sribalaji, 4 weeks ago : docs(README.md): update project description and improve clarity of instructions for building and running the assembler
-b3411d2 - Sribalaji, 4 weeks ago : docs(DESIGN_NOTES.md): update design notes to enhance clarity and structure of the assembler documentation
-b164215 - Sribalaji, 4 weeks ago : chore(github_logs.txt): add log of recent commits to track project history and changes
-8917fa6 - Sribalaji, 4 weeks ago : feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions
-68cd207 - Sribalaji, 4 weeks ago : chore: update CS6461_Assembler.jar to include latest changes and improvements
-fb28858 - Sribalaji, 4 weeks ago : feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability
-3e27fd6 - Sribalaji, 4 weeks ago : docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output
-b1b7630 - Sribalaji, 4 weeks ago : fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting
-c2370f5 - Sribalaji, 4 weeks ago : chore: add program1.txt and program2.txt as new files to the repository
-9e2d498 - Sribalaji, 4 weeks ago : feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users
-41037db - Sribalaji, 4 weeks ago : feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions
-531e5f2 - Sribalaji, 4 weeks ago : feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS
-b1b2eeb - Sribalaji, 4 weeks ago : docs(README.md): update project description and instructions for clarity and completeness
-e148b69 - Sribalaji, 4 weeks ago : feat: add CS6461_Assembler.jar to the project for assembler functionality
-963cacb - Sribalaji, 4 weeks ago : chore: add IntelliJ IDEA module file for CS6461 Assembler project to manage project settings and structure
-a575394 - Sribalaji, 4 weeks ago : feat(tests): add test program files for assembly language simulation
-efa8539 - Sribalaji, 4 weeks ago : feat(META-INF): add MANIFEST.MF file to define main class and version for the application
-929926f - Sribalaji, 4 weeks ago : feat(Assembler): implement assembler functionality to convert assembly code to machine code
-5783968 - Sribalaji, 4 weeks ago : docs: add design notes for CSCI 6461 assembler to document architecture and implementation details
-d073391 - Sribalaji, 4 weeks ago : docs(README.md): add project documentation for the two-pass assembler including compilation and execution instructions
-8db178d - Sribalaji, 4 weeks ago : chore: add IntelliJ IDEA project files to version control for better IDE support and configuration management
-04640dd - Sribalaji, 4 weeks ago : chore(.gitignore): add .gitignore file to exclude IDE-specific files and directories to keep the repository clean
+0ea56cd - Sribalaji, 6 minutes ago : chore: add IntelliJ artifact configuration for CS6461_part2 jar to streamline build process
+544ba76 - Sribalaji, 7 minutes ago : feat: add Team7 Part2 CSCI6461 Section12 Fall 2025 report PDF to the project
+a046c11 - Sribalaji, 7 minutes ago : feat: add CS6461_Part2.jar to the repository to include the compiled application binary
+87488bb - Sribalaji, 7 minutes ago : feat: add Program 1 for Part 2 Deliverable to read and find closest number
+2660a44 - Sribalaji, 9 minutes ago : feat(Assembler.java): add new instruction cases for IN, OUT, CHK, and TRAP to enhance assembler functionality fix(Assembler.java): change variable declaration of r to avoid re-declaration and improve code clarity
+e5649cd - Sribalaji, 9 minutes ago : feat(SimulatorGUI): add cache display area and update layout for better UI refactor(SimulatorGUI): modify CPU initialization to pass console output area fix(SimulatorGUI): adjust memory display logic to include cache updates
+3783052 - Sribalaji, 10 minutes ago : feat(CPU.java): implement caching mechanism to improve memory access speed feat(CPU.java): add console output area for I/O operations in the CPU class refactor(CPU.java): update constructor to initialize cache and console output area fix(CPU.java): enhance reset method to clear cache and FIFO queue feat(CPU.java): add methods for cache management and condition code handling fix(CPU.java): update memory read/write methods to utilize cache for efficiency
+8fb9efb - Sribalaji, 2 weeks ago : chore: update Team7 Part1 CSCI6461 Section12Fall2025October172025.pdf to include the latest changes and revisions
+3f390d6 - Sribalaji, 2 weeks ago : feat: add CS6461_Part1.jar to the repository to include necessary binaries for the project
+0e58e40 - Sribalaji, 2 weeks ago : feat: add artifact configuration for CS6461_Part1 jar file in IDE settings fix(MANIFEST.MF): update Main-Class from Assembler to SimulatorGUI to reflect the correct entry point for the application
+5623956 - Sribalaji, 2 weeks ago : feat: add Team 7 Part 1 report for CSCI6461 Section 12 Fall 2025 to provide documentation of project work
+ab49631 - Sribalaji, 2 weeks ago : chore(github_logs.txt): update commit log to include recent changes and improvements in project documentation and functionality
+7a00a23 - Sribalaji, 2 weeks ago : feat: add initial assembly program and load files for CSCI 6461 - Program 0
+fffa3f7 - Sribalaji, 2 weeks ago : style(Assembler.java): format code for better readability and consistency by adjusting line breaks and indentation
+f23fb6e - Sribalaji, 2 weeks ago : feat(Program0.txt): add initial assembly program demonstrating LDR, LDX, and STR instructions
+4d06774 - Sribalaji, 2 weeks ago : feat(SimulatorGUI.java): add a new graphical user interface for the CPU simulator to enhance user interaction and visualization of CPU operations
+fd94b97 - Sribalaji, 2 weeks ago : feat(CPU.java): add CPU class with registers, memory, and instruction execution logic to implement basic CPU functionality
+c24f347 - Sribalaji, 6 weeks ago : feat: add Team7 AssemblerPart0 CSCI6461 Section12Fall2025 September 2020 PDF document to the repository
+2e8f77e - Sribalaji, 6 weeks ago : docs(github_logs.txt): update commit log to reflect recent changes and improvements in project documentation and functionality
+e147caf - Sribalaji, 6 weeks ago : docs(README.md): update build instructions to include javac and jar commands for creating the executable .jar file
+82cdfdf - Sribalaji, 6 weeks ago : docs(README.md): update project description and improve clarity of instructions for building and running the assembler
+b3411d2 - Sribalaji, 6 weeks ago : docs(DESIGN_NOTES.md): update design notes to enhance clarity and structure of the assembler documentation
+b164215 - Sribalaji, 6 weeks ago : chore(github_logs.txt): add log of recent commits to track project history and changes
+8917fa6 - Sribalaji, 6 weeks ago : feat(programs): add new assembly programs for arithmetic, logical, shift, and rotate operations to enhance testing capabilities fix(test_program_listing.txt): update instruction codes for LDX to correct values for proper execution style(test_program_load.txt): format alignment for better readability in load instructions
+68cd207 - Sribalaji, 6 weeks ago : chore: update CS6461_Assembler.jar to include latest changes and improvements
+fb28858 - Sribalaji, 6 weeks ago : feat(Assembler): add Assembler class to handle assembly logic for improved code organization and maintainability
+3e27fd6 - Sribalaji, 6 weeks ago : docs(Assembler.java): update comments to clarify opcode source and pass descriptions for better understanding fix(Assembler.java): apply 16-bit mask for correct negative number representation in octal for machine code output
+b1b7630 - Sribalaji, 6 weeks ago : fix(Assembler.java): replace comments with actual helper function calls to improve code clarity feat(Assembler.java): add support for SRC and RRC instructions to enhance assembler functionality fix(Assembler.java): mask machineCode with 0xFFFF to ensure correct binary formatting
+c2370f5 - Sribalaji, 6 weeks ago : chore: add program1.txt and program2.txt as new files to the repository
+9e2d498 - Sribalaji, 6 weeks ago : feat(docs): add design notes and user guide for simulator in PDF format to provide documentation for users
+41037db - Sribalaji, 6 weeks ago : feat(setup): add Windows setup script for CSCI6461 Assembler project to check for required development tools and provide installation instructions
+531e5f2 - Sribalaji, 6 weeks ago : feat(mac_setup.sh): add setup script for CSCI6461 Assembler project to check for required development tools on macOS
+b1b2eeb - Sribalaji, 6 weeks ago : docs(README.md): update project description and instructions for clarity and completeness
+e148b69 - Sribalaji, 6 weeks ago : feat: add CS6461_Assembler.jar to the project for assembler functionality
+963cacb - Sribalaji, 6 weeks ago : chore: add IntelliJ IDEA module file for CS6461 Assembler project to manage project settings and structure
+a575394 - Sribalaji, 6 weeks ago : feat(tests): add test program files for assembly language simulation
+efa8539 - Sribalaji, 6 weeks ago : feat(META-INF): add MANIFEST.MF file to define main class and version for the application
+929926f - Sribalaji, 6 weeks ago : feat(Assembler): implement assembler functionality to convert assembly code to machine code
+5783968 - Sribalaji, 6 weeks ago : docs: add design notes for CSCI 6461 assembler to document architecture and implementation details
+d073391 - Sribalaji, 6 weeks ago : docs(README.md): add project documentation for the two-pass assembler including compilation and execution instructions
+8db178d - Sribalaji, 6 weeks ago : chore: add IntelliJ IDEA project files to version control for better IDE support and configuration management
+04640dd - Sribalaji, 6 weeks ago : chore(.gitignore): add .gitignore file to exclude IDE-specific files and directories to keep the repository clean
