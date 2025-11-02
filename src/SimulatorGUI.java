@@ -12,6 +12,7 @@ public class SimulatorGUI extends JFrame {
     private final JTextField[] ixrFields = new JTextField[3]; // Index Registers X1-X3
     private JTextArea consoleOutputArea;
     private JTextArea memoryDisplayArea;
+    private JTextArea cacheDisplayArea; // <-- NEW
     private JTextField memoryAddressField, memoryValueField;
 
     // --- CPU Instance ---
@@ -19,14 +20,19 @@ public class SimulatorGUI extends JFrame {
     private boolean isRunning = false; // Flag to control the run loop
 
     public SimulatorGUI() {
-        cpu = new CPU(); // Initialize the CPU
-
         // --- Frame Setup ---
-        setTitle("TEAM 7 - CSCI 6461 CPU Simulator");
-        setSize(1000, 750);
+        setTitle("TEAM 7 - CSCI 6461 CPU Simulator (Part 2)");
+        setSize(1200, 750); // <-- Increased width for cache
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window
         setLayout(new BorderLayout(10, 10));
+
+        // --- South Panel: Console (Create this first for CPU) ---
+        JPanel consolePanel = createConsolePanel();
+        add(consolePanel, BorderLayout.SOUTH);
+
+        // --- CPU Instance (Pass console to it) ---
+        cpu = new CPU(consoleOutputArea); // <-- UPDATED
 
         // --- Top Panel: Control Buttons ---
         JPanel controlPanel = createControlPanel();
@@ -35,10 +41,6 @@ public class SimulatorGUI extends JFrame {
         // --- Center Panel: Registers and Memory ---
         JPanel centerPanel = createCenterPanel();
         add(centerPanel, BorderLayout.CENTER);
-
-        // --- South Panel: Console ---
-        JPanel consolePanel = createConsolePanel();
-        add(consolePanel, BorderLayout.SOUTH);
 
         // --- Finalize ---
         setVisible(true);
@@ -70,9 +72,10 @@ public class SimulatorGUI extends JFrame {
     }
 
     private JPanel createCenterPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2, 10, 0)); // Two columns
+        JPanel panel = new JPanel(new GridLayout(1, 3, 10, 0)); // <-- 3 columns
         panel.add(createRegisterPanel());
         panel.add(createMemoryPanel());
+        panel.add(createCachePanel()); // <-- NEW
         return panel;
     }
 
@@ -134,6 +137,18 @@ public class SimulatorGUI extends JFrame {
         return panel;
     }
 
+    // --- NEW PANEL FOR CACHE ---
+    private JPanel createCachePanel() {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.setBorder(BorderFactory.createTitledBorder("Cache Content"));
+        cacheDisplayArea = new JTextArea(15, 30);
+        cacheDisplayArea.setEditable(false);
+        cacheDisplayArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        panel.add(new JScrollPane(cacheDisplayArea), BorderLayout.CENTER);
+        return panel;
+    }
+
+
     private JPanel createConsolePanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createTitledBorder("Console I/O"));
@@ -163,7 +178,7 @@ public class SimulatorGUI extends JFrame {
                     if (parts.length == 2) {
                         int address = Integer.parseInt(parts[0], 8);
                         int value = Integer.parseInt(parts[1], 8);
-                        cpu.writeMemory(address, value);
+                        cpu.writeMemory(address, value); // Will write to mem and cache
                         if (firstLine) {
                             cpu.PC = address; // Set PC to the first address in the file
                             firstLine = false;
@@ -251,7 +266,7 @@ public class SimulatorGUI extends JFrame {
             int address = Integer.parseInt(memoryAddressField.getText(), 8);
             int value = Integer.parseInt(memoryValueField.getText(), 8);
             cpu.writeMemory(address, value);
-            updateGUI(); // Refresh memory view
+            updateGUI(); // Refresh memory and cache view
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid octal address or value.", "Input Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -280,12 +295,15 @@ public class SimulatorGUI extends JFrame {
         for (int i = 0; i < 20; i++) {
             int currentAddr = startAddr + i;
             if (currentAddr < 2048) {
-                // Reading memory for display should not alter MAR or MBR for the user
-                // FIX: Changed getMemoryValue to readMemory, which exists in the CPU class
-                memText.append(String.format("%04o: %06o\n", currentAddr, cpu.readMemory(currentAddr)));
+                // We must read directly from memory for this display,
+                // or else the display itself will fill the cache.
+                memText.append(String.format("%04o: %06o\n", currentAddr, cpu.memory[currentAddr]));
             }
         }
         memoryDisplayArea.setText(memText.toString());
+
+        // Update cache display
+        cacheDisplayArea.setText(cpu.getCacheContents());
     }
 
     public static void main(String[] args) {
