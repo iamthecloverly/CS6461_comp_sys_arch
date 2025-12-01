@@ -1,0 +1,112 @@
+; CSCI 6461 - Program 2 (Character Search) - CORRECTED VERSION
+; Searches paragraph for a single character
+;
+; FINAL FIX: Correct instruction syntax for all jumps
+
+; ========================================
+; CODE SECTION - PUT FIRST FOR IPL!
+; ========================================
+
+        LOC 100                 ; Start code at address 100 (octal 144)
+START:
+
+; --------------------------------------------------
+; 1. Initialize IX1 with buffer base address
+; --------------------------------------------------
+
+        LDX 1,10                ; IX1 = memory[10] = 600 (direct - read value)
+
+; --------------------------------------------------
+; 2. Read paragraph from Device 2 into buffer
+; --------------------------------------------------
+
+READ_LOOP:
+        IN 0,2                  ; R0 = next char from Device 2 (file)
+        JZ 0,0,15,1             ; If R0==0, jump to memory[15] = READ_DONE (indirect)
+
+        STR 0,1,0               ; memory[IX1] = R0 (store character)
+        OUT 0,1                 ; Echo character to printer (Device 1)
+
+        ; Manually increment IX1
+        STX 1,20                ; Store IX1 to temp location 20
+        LDR 2,0,20              ; Load R2 from memory[20] (get the value)
+        AIR 2,1                 ; R2++
+        STR 2,0,20              ; Store back
+        LDX 1,20                ; Load back into IX1 (get the value)
+
+        JMA 0,0,14,1            ; Jump to memory[14] = READ_LOOP (indirect)
+
+READ_DONE:
+
+; --------------------------------------------------
+; 3. Read search character from keyboard
+; --------------------------------------------------
+
+        IN 0,0                  ; R0 = character from keyboard (Device 0)
+        STR 0,0,11              ; Store at SEARCH_CHAR (address 11)
+
+; --------------------------------------------------
+; 4. Reset buffer pointer and search
+; --------------------------------------------------
+
+        LDX 1,10                ; Reset IX1 to buffer base (600) direct
+
+SEARCH_LOOP:
+        LDR 2,1,0               ; R2 = memory[IX1] (current buffer char)
+        JZ 2,0,17,1             ; If R2==0, jump to memory[17] = NOT_FOUND (indirect)
+
+        SMR 2,0,11              ; R2 = R2 - SEARCH_CHAR (address 11)
+        JZ 2,0,16,1             ; If R2==0 (equal), jump to memory[16] = FOUND (indirect)
+
+        ; Increment IX1
+        STX 1,20                ; Store IX1 to temp (address 20)
+        LDR 2,0,20              ; Load R2 from memory[20] (get the value)
+        AIR 2,1                 ; R2++
+        STR 2,0,20              ; Store back
+        LDX 1,20                ; Load back into IX1 (get the value)
+
+        JMA 0,0,18,1            ; Jump to memory[18] = SEARCH_LOOP (indirect)
+
+; --------------------------------------------------
+; 5. Character found - print 'F'
+; --------------------------------------------------
+
+FOUND:
+        LDA 0,0,12              ; R0 = CHAR_F (from address 12)
+        OUT 0,1                 ; Print 'F' to Device 1
+        HLT
+
+; --------------------------------------------------
+; 6. Character not found - print 'N'
+; --------------------------------------------------
+
+NOT_FOUND:
+        LDA 0,0,13              ; R0 = CHAR_N (from address 13)
+        OUT 0,1                 ; Print 'N' to Device 1
+        HLT
+
+; ========================================
+; DATA SECTION - MUST BE IN LOW MEMORY!
+; ========================================
+
+        LOC 10                  ; Start data at address 10 (octal 12)
+
+BUFFER_PTR:   DATA 600          ; Pointer to buffer base (octal 600)
+SEARCH_CHAR:  DATA 0            ; Storage for search character
+CHAR_F:       DATA 70           ; ASCII 'F' (decimal 70)
+CHAR_N:       DATA 78           ; ASCII 'N' (decimal 78)
+READ_LOOP_P:  DATA READ_LOOP    ; Pointer to READ_LOOP
+READ_DONE_P:  DATA READ_DONE    ; Pointer to READ_DONE
+FOUND_P:      DATA FOUND        ; Pointer to FOUND
+NOT_FOUND_P:  DATA NOT_FOUND    ; Pointer to NOT_FOUND
+SEARCH_LP:    DATA SEARCH_LOOP  ; Pointer to SEARCH_LOOP
+
+        LOC 20                  ; Temp storage (within 5-bit range!)
+TEMP_ADDR:    DATA 0            ; Temporary address storage
+
+; --------------------------------------------------
+; BUFFER SECTION
+; --------------------------------------------------
+
+        LOC 600                 ; Buffer starts at 600 (octal 1130)
+BUFFER:     DATA 0              ; First byte of buffer
